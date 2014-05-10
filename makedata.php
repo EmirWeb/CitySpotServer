@@ -117,7 +117,7 @@ $jsonArr = Array();
 $type= "greenParking";
 //echo "your not crazy";
 foreach($closest as $item){
-  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis'],'url'=> $item['url'],'name'=>item['name']);
+  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis'],'url'=> $item['url'],'name' => $item['name']);
 }
 $jsonArr = json_encode($jsonArr);
 echo $jsonArr;
