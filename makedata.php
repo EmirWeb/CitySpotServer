@@ -2,9 +2,9 @@
 
 
 
-$torontoCode = array('lat'=>'43.7000','lng' =>'-79.4000','data'=>'greenPParking.json');
-$ottawaCode = array('lat'=>'45.4214','lng' =>'-75.6919','data'=>'ottawaParking.json');
-$sanfranCode = array('lat'=>'37.7833','lng'=>'-122.4167','data'=>'sf_onstreet_parking.json');
+$torontoCode = array('lat'=>'43.7000','lng' =>'-79.4000','data'=>'greenPParking.json','url'=>'http://cityspot.org/img/activity_glass_background.png');
+$ottawaCode = array('lat'=>'45.4214','lng' =>'-75.6919','data'=>'ottawaParking.json','url'=>'http://cityspot.org/img/activity_glass_background_ottawa.png');
+$sanfranCode = array('lat'=>'37.7833','lng'=>'-122.4167','data'=>'sf_onstreet_parking.json','url'=>'http://cityspot.org/img/activity_glass_background_sanfran.png');
 
 
 
@@ -47,7 +47,7 @@ function searchGreenP($userLat,$userLong,$data){
       $getDis = distance($userLat, $userLong,$thisLat,$thisLng,"K");
 
       if ($getDis < 5){
-
+        $key['url'] = $data[$thisCity]['url'];
         $key['getDis'] = $getDis;
         $printArr[] = $key;
 
@@ -116,7 +116,7 @@ $jsonArr = Array();
 $type= "greenParking";
 //echo "your not crazy";
 foreach($closest as $item){
-  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis']);
+  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis'],'url'=> $item['url']);
 }
 $jsonArr = json_encode($jsonArr);
 echo $jsonArr;
