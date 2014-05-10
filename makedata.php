@@ -2,9 +2,9 @@
 
 
 
-$torontoCode = array('lat'=>'43.7000','lng' =>'-79.4000','data'=>'greenPParking.json','url'=>'http://cityspot.org/img/activity_glass_background.png');
-$ottawaCode = array('lat'=>'45.4214','lng' =>'-75.6919','data'=>'ottawaParking.json','url'=>'http://cityspot.org/img/activity_glass_background_ottawa.png');
-$sanfranCode = array('lat'=>'37.7833','lng'=>'-122.4167','data'=>'sf_onstreet_parking.json','url'=>'http://cityspot.org/img/activity_glass_background_sanfran.png');
+$torontoCode = array('lat'=>'43.7000','lng' =>'-79.4000','data'=>'greenPParking.json','url'=>'http://cityspot.org/img/activity_glass_background.png','name' => 'Toronto');
+$ottawaCode = array('lat'=>'45.4214','lng' =>'-75.6919','data'=>'ottawaParking.json','url'=>'http://cityspot.org/img/activity_glass_background_ottawa.png','name' => 'Ottawa');
+$sanfranCode = array('lat'=>'37.7833','lng'=>'-122.4167','data'=>'sf_onstreet_parking.json','url'=>'http://cityspot.org/img/activity_glass_background_sanfran.png','name' => 'San Francisco');
 
 
 
@@ -48,6 +48,7 @@ function searchGreenP($userLat,$userLong,$data){
 
       if ($getDis < 5){
         $key['url'] = $data[$thisCity]['url'];
+        $key['name'] = $data[$thisCity]['name'];
         $key['getDis'] = $getDis;
         $printArr[] = $key;
 
@@ -116,7 +117,7 @@ $jsonArr = Array();
 $type= "greenParking";
 //echo "your not crazy";
 foreach($closest as $item){
-  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis'],'url'=> $item['url']);
+  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis'],'url'=> $item['url'],'name'=>item['name']);
 }
 $jsonArr = json_encode($jsonArr);
 echo $jsonArr;
