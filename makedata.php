@@ -119,10 +119,13 @@ $closest = array_orderby($closest, 'getDis', SORT_ASC);
 $jsonArr = Array();
 $type= "greenParking";
 //echo "your not crazy";
-$jsonArr[] = Array('city'=>$cities[$thisCity]['name'], 'url'=>$cities[$thisCity]['url']);
+$jsonArr= Array('city'=>$cities[$thisCity]['name'], 'url'=>$cities[$thisCity]['url']);
+$newResults;
 foreach($closest as $item){
-  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis']);
+
+  $newResults[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis']);
 }
+$jsonArr['results'] = $newResults;
 $jsonArr = json_encode($jsonArr);
 echo $jsonArr;
 //var_dump($jsonArr);
