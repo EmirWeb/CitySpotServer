@@ -21,20 +21,10 @@ $cities = array($torontoCode,$ottawaCode,$sanfranCode);
 function searchGreenP($userLat,$userLong,$data){
   $printArr = Array();
 
-  for($y = 0; $y < count($data) ; $y++){
+if($data == 'a'){
+  return '';
+}
 
-    $getDis = distance($userLat, $userLong,floatval($data[$y]['lat']),floatval($data[$y]['lng']),"K");
-    if($getDis < 250){
-      $thisCity = $y;
-      $string1 = file_get_contents($data[$thisCity]['data']);
-      $dataSet = json_decode($string1,true);
-
-      break;
-    }
-  }
-  if(isset($thisCity) == 0){
-    return '';
-  }
 
     foreach($dataSet as $key){
 
@@ -107,17 +97,33 @@ function array_orderby()
 $userLat =$_GET['latitude'];//
 $userLng =$_GET['longitude'];//
 
+
+for($y = 0; $y < count($cities) ; $y++){
+
+  $getDis = distance($userLat, $userLong,floatval($cities[$y]['lat']),floatval($cities[$y]['lng']),"K");
+  if($getDis < 250){
+    $thisCity = $y;
+    $string1 = file_get_contents($cities[$thisCity]['data']);
+    $dataSet = json_decode($string1,true);
+
+    break;
+  }
+}
+if(isset($dataSet) == 0){
+  $dataSet = 'a';
+}
 //Set up radius
 //$closest='asdasdaadasdads'+1231231231231;
-$closest = searchGreenP($userLat,$userLng,$cities);
+$closest = searchGreenP($userLat,$userLng,$dataSet);
 $closest = array_orderby($closest, 'getDis', SORT_ASC);
 
 //create silly json.stuff.
 $jsonArr = Array();
 $type= "greenParking";
 //echo "your not crazy";
+$jsonArr[] = Array('city'=>$cities[$thisCity]['name'], 'url'=>$cities[$thisCity]['url']);
 foreach($closest as $item){
-  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis'],'url'=> $item['url'],'name' => $item['name']);
+  $jsonArr[] = Array('address' => $item['address'], 'lng' => $item['lng'], 'lat' => $item['lat'], 'rate_half_hour' => $item['rate_half_hour'], 'type'=> "greenParking", 'distance' => $item['getDis']);
 }
 $jsonArr = json_encode($jsonArr);
 echo $jsonArr;
