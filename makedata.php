@@ -26,7 +26,7 @@ if($data == 'a'){
 }
 
 
-    foreach($dataSet as $key){
+    foreach($data as $key){
 
       $thisLng = floatval($key['lng']);
       $thisLat = floatval($key['lat']);
@@ -37,8 +37,6 @@ if($data == 'a'){
       $getDis = distance($userLat, $userLong,$thisLat,$thisLng,"K");
 
       if ($getDis < 5){
-        $key['url'] = $data[$thisCity]['url'];
-        $key['name'] = $data[$thisCity]['name'];
         $key['getDis'] = $getDis;
         $printArr[] = $key;
 
@@ -100,7 +98,7 @@ $userLng =$_GET['longitude'];//
 
 for($y = 0; $y < count($cities) ; $y++){
 
-  $getDis = distance($userLat, $userLong,floatval($cities[$y]['lat']),floatval($cities[$y]['lng']),"K");
+  $getDis = distance($userLat, $userLng,floatval($cities[$y]['lat']),floatval($cities[$y]['lng']),"K");
   if($getDis < 250){
     $thisCity = $y;
     $string1 = file_get_contents($cities[$thisCity]['data']);
