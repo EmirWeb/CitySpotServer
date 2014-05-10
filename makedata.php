@@ -19,6 +19,7 @@ $cities = array($torontoCode,$ottawaCode,$sanfranCode);
 //Accepts php array loops through the list to find the top 5 closest parking lots
 
 function searchGreenP($userLat,$userLong,$data){
+  $count = 0
   $printArr = Array();
 
 if($data == 'a'){
@@ -40,10 +41,10 @@ if($data == 'a'){
         $key['getDis'] = $getDis;
         $printArr[] = $key;
 
-        //$count++;
-        // if($count > 25){
-        //   break;
-        // }
+        $count++;
+        if($count > 25){
+          break;
+        }
       }else{
         continue;
       }
